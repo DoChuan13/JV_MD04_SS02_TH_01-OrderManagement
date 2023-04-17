@@ -25,6 +25,14 @@ create table NguoiDat(
     foreign key (MaDV) references DonviKhach(MaDV)
 );
 
+create table OrderGroup(
+	SoDH varchar(20) primary key,
+	NgayOrder date,
+	Soluong int,
+	MaHang varchar(20),
+	foreign key (MaHang) references Hang(MaHang)
+);
+
 create table NguoiNhan(
 	MaNN varchar(20) primary key,
     TenNN varchar(30),
@@ -39,12 +47,19 @@ create table NoiGiao(
 
 create table NguoiGiao(
 	MaNG varchar(20) primary key,
-    TenNG varchar(30),
+    TenNG varchar(30)
+);
+create table Delevery(
+	SoPG varchar(20) not null primary key,
+	NgayGiao date,
+    DonGia float,
+    SoDH varchar(20),
     MaNN varchar(20),
     MaDDG varchar(20),
-	MaHang varchar(20),
-    foreign key (MaHang) references Hang(MaHang),
+    MaNG varchar(20),
+    foreign key (SoDH) references OrderGroup(SoDH),
+    foreign key (MaDDG) references NoiGiao(MaDDG),
 	foreign key (MaNN) references NguoiNhan(MaNN),
-    foreign key (MaDDG) references NoiGiao(MaDDG)
+    foreign key (MaNG) references NguoiGiao(MaNG)
 );
 
